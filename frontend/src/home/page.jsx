@@ -49,17 +49,20 @@ export default function Home() {
   const getRoutes = async () => {
     try {
       setLoading(true);
-      const routes = await fetch(`http://16.170.148.47:3000/api/getRoute`, {
-        method: "POST",
-        body: JSON.stringify({
-          DeparturePosition: sourceCords,
-          DestinationPosition: destCords,
-          DepartureTime: `${new Date()}`,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
+      const routes = await fetch(
+        `https://gypsy-backend.onrender.com/api/getRoute`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            DeparturePosition: sourceCords,
+            DestinationPosition: destCords,
+            DepartureTime: `${new Date()}`,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        }
+      );
       const data = await routes.json();
       console.log(data);
       let cor = [];
@@ -90,7 +93,7 @@ export default function Home() {
   const handleOnSearch = async (string) => {
     if (string === "") return;
     const response = await fetch(
-      `http://16.170.148.47:3000/api/search/?text=${string}&maxResults=3`
+      `https://gypsy-backend.onrender.com/api/search/?text=${string}&maxResults=3`
     );
     const data = await response.json();
     const newList = [];
